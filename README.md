@@ -21,3 +21,6 @@ sweep line algo: leetcode 253, 1589, 1109
 
 Reservoir Sampling:
 A family of randomized algorithms for sampling from a population of unknown size.
+
+## building-heap-from-array
+[Building Heap from Array](https://www.geeksforgeeks.org/building-heap-from-array/):

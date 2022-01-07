@@ -5,6 +5,8 @@ In heap sorting, we first convert the given data into a random heap (a random di
 
 ** It is similar to selection sort where we first find the maximum element and place the maximum element at the end.
 
+Refer to [Building Heap From Array](../README.md## building-heap-from-array)
+
 Sample code for heap sorting:
 def heapify(arr, n, i):
     largest = i  # Initialize largest as root
