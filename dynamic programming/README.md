@@ -13,3 +13,11 @@ Naive Recursive solutions can be optimised using Dynamic Programming.
 
 Longest Increasing Subsequence:
 For a sequence a1, a2, ... , an, find the length of the longest increasing subsequence ai1, ai2,..., aik.
+
+
+Cherry Pickup:
+
+[Link](https://leetcode.com/problems/cherry-pickup-ii/solution/) to the problem.
+
+Approaches: Depth-First Search with memoization Top Down or Bottom up
+
