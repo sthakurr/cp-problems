@@ -14,3 +14,11 @@ class Solution(object):
                 newflower[i] = 1
                 n -= 1
         return n <= 0
+
+# Inorder Traversal Utility Function
+
+def inorder(root, arr = []):
+    if root:
+        inorder(root.left, arr)
+        arr.append(root.val)
+        inorder(root.right, arr)
