@@ -25,6 +25,12 @@ def dfs(visited, graph, node):  #function for dfs
         for neighbour in graph[node]:
             dfs(visited, graph, neighbour)
 
+Breadth-First Search:
+
+
+Trie (Prefix Tree)
+[Implementation](https://leetcode.com/problems/implement-trie-prefix-tree/)
+
 Sweep Line Algo:
 https://leetcode.com/problems/maximum-sum-obtained-of-any-permutation/discuss/854206/JavaC%2B%2BPython-Sweep-Line
 sweep line algo: leetcode 253, 1589, 1109
