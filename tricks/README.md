@@ -22,3 +22,25 @@ def inorder(root, arr = []):
         inorder(root.left, arr)
         arr.append(root.val)
         inorder(root.right, arr)
+
+# Bit Manipulation for keeping track of new numbers
+[Link](https://leetcode.com/problems/single-number/) to a sample problem: Single Number
+
+Here, XOR operation can be used to add bitwise numbers when new numbers are seen and destroy the bits of numbers that are already seen before. This way, the number that was present only once, its bits survive in the end and hence the result.
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # o1 oN 
+        
+        # cant sort 
+        # cant use map 
+        
+        # can use pointers or swap 
+        res = 0 
+        for n in nums: 
+            res = n ^ res  # XOR operation
+        return res
