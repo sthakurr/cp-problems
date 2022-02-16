@@ -38,4 +38,15 @@ class Solution(object):
                 root2 = root2.right
         return all_list
 
+[Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) to the problem: Finding maximum depth of a binary tree (Recursive Solution)
+class Solution(object):    
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        else:
+            return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
 ## Linked List
