@@ -40,3 +40,4 @@ class Solution(object):
 [Link](https://leetcode.com/problems/car-pooling/) to the problem.
 
 Idea: Heap Sorting, Sort the pickup and dropoff events by location, then process them in order.
+
