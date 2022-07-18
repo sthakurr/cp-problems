@@ -1,5 +1,7 @@
 BITWISE Operators:
 
+To obtain the binary rep of an integer: use bin(n)
+
 Brian Kernighan’s Algorithm (to count the set bits in an integer's bit representation):
 It says that the bit rep of (n-1) unsets the rightmost set bit of n and flips all the other values that are right to the rightmost set bit of n. So, if we do the bitwise & of n and (n-1), then we could unset the rightmost set bit! 
 
