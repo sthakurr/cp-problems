@@ -2,7 +2,7 @@
 
 Pointers are special variables, used to store the addresses of other variables. They are declared using the special character (*) and can be initialised to address of any variable.
 
-```bash
+```python
 int c;
 int *p;
 c = 5
@@ -12,7 +12,7 @@ p = &c; // stores the address of c
 We can access the value any pointer is storing at its address that it is pointing to using another (*). So, *p will be equal to 5.
 Also, we can change the value of any location using its pointer variable like:
 
-```bash
+```python
 *p = 8 // now c = 8!!
 ```
 
@@ -20,7 +20,7 @@ Also, we can change the value of any location using its pointer variable like:
 
 Arrays are assigned contiguous blocks of memory. 
 
-```bash
+```python
 int A[5];
 ```
 
@@ -30,7 +30,7 @@ So,
 A will point to the base address and (A+1) will then point to the starting address of (A+1) where 1 would be called the offset.
 So, if A[0] starts from 101, A[1] will start from 105 so:
 
-```bash
+```python
 printf(A) // will print A[0]
 printf(A+1) // will print A[1]
 printf(*(A+1)) // will print the value at 105; value of A[1]
@@ -42,7 +42,7 @@ printf(*(A+1)) // will print the value at 105; value of A[1]
 
 If x is a single variable stored at 300 and int A[3] is an array stored at 400, then:
 
-```bash
+```python
 int *p = &x
 printf(*(A+1)) // will print the value of A[1]
 printf(*(p+1)) // will print garbage
@@ -59,7 +59,7 @@ p++ // will execute fine
 
 ### Pointers and multidimensional arrays
 
-```bash
+```python
 int A[2][3];
 int *p = A // will give a compilation error since the array name here is not an integer pointer but is pointing to an array
 int *p[3] = A // works fine
@@ -67,7 +67,7 @@ int *p[3] = A // works fine
 
 Array Pointer Arithmetics:
 
-```bash
+```python
 print B     // an array pointer
 print *B    // value of this array pointer (an integer pointer: B[0])
 print B[0]      // an integer pointer
@@ -98,7 +98,7 @@ Think the above in terms of array and integer pointer. * (any array pointer) ret
 ### Insertion Sort
 Check every element with its preceding values and if they are greater than the key, then shift the values rightwards and insert the key at their location. This can be made more efficient by checking for greater values continuously since the preceding values are getting sorted accordingly, as shown below:
 
-```bash
+```python
 def insertionSort(arr):
     # Traverse through 1 to len(arr)
     for i in range(1, len(arr)):
@@ -118,7 +118,7 @@ def insertionSort(arr):
 Merge sort repeatedly breaks down a list into several sublists until each sublist consists of a single element and merging those sublists in a manner that results into a sorted list.
 
 Top-Down recursive approach:
-```bash
+```python
 # and merge them in sorted order
 def merge(Arr, start, mid, end) :
 
