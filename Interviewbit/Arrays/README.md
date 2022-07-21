@@ -50,7 +50,7 @@ printf(*(p+1)) // will print garbage
 
 The neighbors of single variables do not have connected access!
 
-```bash
+```python
 A++ // will give compilation error
 // whereas
 int *p = A
@@ -95,8 +95,20 @@ Think the above in terms of array and integer pointer. * (any array pointer) ret
 
 ![Sorting Algorithms](/assets/sorting.png)
 
+In python, just write:
+
+```python
+A.sort()
+```
+
+Sort function of most of the programming languages uses QuickSort!
+
+Stable Algos: The algorithms that preserve the relative ordering of numbers in the starting array after sorting
+In-place algos: Algos that do not need any extra space and perform the sorting operation on the array's allocated memory directly
+
 ### Insertion Sort
-Check every element with its preceding values and if they are greater than the key, then shift the values rightwards and insert the key at their location. This can be made more efficient by checking for greater values continuously since the preceding values are getting sorted accordingly, as shown below:
+
+> Check every element with its preceding values and if they are greater than the key, then shift the values rightwards and insert the key at their location. This can be made more efficient by checking for greater values continuously since the preceding values are getting sorted accordingly, as shown below:
 
 ```python
 def insertionSort(arr):
@@ -115,7 +127,8 @@ def insertionSort(arr):
 ```
 
 ### Merge Sort
-Merge sort repeatedly breaks down a list into several sublists until each sublist consists of a single element and merging those sublists in a manner that results into a sorted list.
+
+> Merge sort repeatedly breaks down a list into several sublists until each sublist consists of a single element and merging those sublists in a manner that results into a sorted list.
 
 Top-Down recursive approach:
 ```python
@@ -153,3 +166,11 @@ def merge(Arr, start, mid, end) :
 ```
 
 Bottom Up iterative approach:
+
+### Quick Sort 
+
+> Take a pivot and check for all the other elements except it: if it is smaller than the pivot, swap it with a pivot index (which is only incremented when a value smaller than the pivot is found). The pivot index is the partition between the < pivot and > pivot elements!!
+Finally, the pivot is swapped with the element at the pivot index.
+
+Usually, the rightmost element is chosen as the pivot.
+**Randomised Quick Sort**: Randomly choose a pivot and send it to the rightmost end. The average time complexity is O(nlogn)
