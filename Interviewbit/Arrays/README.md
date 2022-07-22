@@ -174,3 +174,36 @@ Finally, the pivot is swapped with the element at the pivot index.
 
 Usually, the rightmost element is chosen as the pivot.
 **Randomised Quick Sort**: Randomly choose a pivot and send it to the rightmost end. The average time complexity is O(nlogn)
+
+
+### Selection Sort
+
+> Includes the concept of a sorted and an unsorted subarray. Initially, the sorted subarray is empty and the unsorted is the complete array. The goal is to make sorted subarray = complete array by choosing the minimum value from the unsorted and swapping it with the first element of the unsorted (it now becomes a part of the sorted array)
+
+```python
+def findMinIndex(A, start):  
+    min_index = start  
+  
+    start += 1  
+  
+    while start < len(A):  
+        if A[start] < A[min_index]:  
+            min_index = start  
+  
+        start += 1  
+  
+    return min_index  
+  
+def selectionSort(A):  
+    i = 0  
+  
+    while i < len(A):  
+        min_index = findMinIndex(A, i)  
+  
+        if i != min_index:  
+            A[i], A[min_index] = A[min_index], A[i]  
+          
+        i += 1  
+```
+
+### 
