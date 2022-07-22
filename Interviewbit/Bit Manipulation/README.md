@@ -35,3 +35,20 @@ Remember, if the leftmost bit according to the datatype of any of the above resu
 
 -   Leftshift operators:    A << x shifts the bits of A to left by x positions 
 -   rightshift operators:   A >> x shifts the bits of A to the right by x positions and the last x bits are lost this way.
+
+> A << x = multiplication by pow(2, x)
+> A >> x = division by pow(2, x)
+> 1 << x = pow(2, x)
+
+### Bit Tricks
+
+-   x & (x-1) will clear the lowest set bit of x
+-   x & ~(x-1) extracts the lowest set bit of x (all others are clear). Pretty patterns when applied to a linear sequence.
+-   x & (x + (1 << n)) = x, with the run of set bits (possibly length 0) starting at bit n cleared.
+-   x & ~(x + (1 << n)) = the run of set bits (possibly length 0) in x, starting at bit n.
+-   x | (x + 1) = x with the lowest cleared bit set.
+-   x | ~(x + 1) = extracts the lowest cleared bit of x (all others are set).
+-   x | (x - (1 << n)) = x, with the run of cleared bits (possibly length 0) starting at bit n set.
+-   x | ~(x - (1 << n)) = the lowest run of cleared bits (possibly length 0) in x, starting at bit n are the only clear bits.
+
+> Remember that bitwise operators can work with integers too but operation is applied bitwise. So & and && are very different.
