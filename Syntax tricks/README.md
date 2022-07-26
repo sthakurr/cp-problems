@@ -20,3 +20,7 @@ Instead do:
 ```python
 temp = copy.deepcopy(out)
 ```
+
+### To check for a palindrome:
+
+' return s == s[::-1] '
