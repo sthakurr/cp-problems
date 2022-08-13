@@ -30,11 +30,6 @@ Breadth-First Search:
 ### Trie (Prefix Tree)
 [Implementation](https://leetcode.com/problems/implement-trie-prefix-tree/)
 
-### Sweep Line Algo:
-https://leetcode.com/problems/maximum-sum-obtained-of-any-permutation/discuss/854206/JavaC%2B%2BPython-Sweep-Line
-sweep line algo: leetcode 253, 1589, 1109
-** NOTE that for all intervals inputs, this method should be the first intuition you come up with. **
-
 Reservoir Sampling:
 A family of randomized algorithms for sampling from a population of unknown size.
 
