@@ -6,6 +6,7 @@ The base cases here can be easily eliminated by adding zeros at the start and en
 
 Best solution:
 
+```python
 class Solution(object):
     def canPlaceFlowers(self, flowerbed, n):
         newflower = [0] + flowerbed + [0]
@@ -14,20 +15,24 @@ class Solution(object):
                 newflower[i] = 1
                 n -= 1
         return n <= 0
+```
 
 # Inorder Traversal Utility Function
 
+```python
 def inorder(root, arr = []):
     if root:
         inorder(root.left, arr)
         arr.append(root.val)
         inorder(root.right, arr)
+```
 
 # Bit Manipulation for keeping track of new numbers
 [Link](https://leetcode.com/problems/single-number/) to a sample problem: Single Number
 
 Here, XOR operation can be used to add bitwise numbers when new numbers are seen and destroy the bits of numbers that are already seen before. This way, the number that was present only once, its bits survive in the end and hence the result.
 
+```python
 class Solution(object):
     def singleNumber(self, nums):
         """
@@ -44,3 +49,4 @@ class Solution(object):
         for n in nums: 
             res = n ^ res  # XOR operation
         return res
+```

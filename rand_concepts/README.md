@@ -25,4 +25,3 @@ There are 2 algorithms to find the MST of a graph and they both follow Greedy ap
     - Repeat this until there are (V-1) edges
 
 **NOTE**: Prim iterates over the vertices whereas Kruskal iterates over the edges hence there's no need to check for cycles in Prim's but Kruskal's has this step of checking for cycles in between!
-

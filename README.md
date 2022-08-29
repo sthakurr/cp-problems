@@ -26,6 +26,21 @@ def dfs(visited, graph, node):  #function for dfs
 
 Breadth-First Search:
 
+### Digit Dynamic Programming:
+
+Refer to [this](https://youtu.be/sCwokuCoQB8) for an intuition!
+Whenever we want to solve problems involving patterns in digits of numbers within a given range, digit dynamic programming helps!
+Sequentially move forward by removing one digit at a time and checking for the conditions. Time complexity is O(log(n)^2)
+
+### Bisect module
+
+--> Works with sorted arrays, uses the concept of binary search
+Returns the position where a new number should be inserted in a sorted array in O(logn). efficient because it reduces the overhead time to sort the list
+insort() returns the sorted array after inserting the element in O(n)
+
+### Bitmasking and DP
+
+Use bitmasking when keeping a track of subsets included for a given setting. For example, if there are 5 persons and 1st and 4th of them are wearing a cap, then it can be represented with 10010. Masks can be used to 
 
 ### Trie (Prefix Tree)
 [Implementation](https://leetcode.com/problems/implement-trie-prefix-tree/)
@@ -35,3 +50,5 @@ A family of randomized algorithms for sampling from a population of unknown size
 
 ## building-heap-from-array
 [Building Heap from Array](https://www.geeksforgeeks.org/building-heap-from-array/):
+use heapify()
+most of the operations in a heap are performed in log(n)

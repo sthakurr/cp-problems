@@ -11,6 +11,7 @@ Main Concept: InOrderly Traversal and then using two stacks to store the values 
 
 Inorderly traversal: First traversing the leftmost branch of both the BSTs (while storing the values in a stack) until last node is reached. Compare both the stacks and add the smaller value to the final result array. Include the base cases like when one stack is empty then don't compare but append the entries of the non-empty array. After appending, move the root pointer to the right value. Here the base case checking the lengths of both the stacks will come into play. If the root.right value is None, it should now point to the top value of that stack and then its right pointer. This way, all the right pointers are also included. Refer to [this](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/discuss/1720210/JavaC%2B%2BPython-A-very-very-detailed-EXPLANATION) for a more detailed explanation.
 
+```python
 class Solution(object):
     def getAllElements(self, root1, root2):
         """
@@ -37,8 +38,11 @@ class Solution(object):
                 all_list.append(root2.val)
                 root2 = root2.right
         return all_list
+```
 
 [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) to the problem: Finding maximum depth of a binary tree (Recursive Solution)
+
+```python
 class Solution(object):    
     def maxDepth(self, root):
         """
@@ -49,4 +53,6 @@ class Solution(object):
             return 0
         else:
             return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
+```
+
 ## Linked List
