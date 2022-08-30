@@ -50,3 +50,18 @@ class Solution(object):
             res = n ^ res  # XOR operation
         return res
 ```
+
+# Broadening the interval
+
+[m, n] = [0, n] - [0, m]
+
+If we need to find ways of doing something in the interval [m, n], we can find it for [0, n] and [0, m] and then subtract!
+
+# Bitmasking
+
+Use bit masks to keep track of the values that have already been considered. 
+If i has been processed already, use a XOR operation with (1<<i) on the mask containing the info about the various possibilities so the ith set bit becomes unset.
+
+```python
+mask = mask ^ (i<<i) 
+```

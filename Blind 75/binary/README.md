@@ -8,6 +8,8 @@ It says that the bit rep of (n-1) unsets the rightmost set bit of n and flips al
 So,
 [Link to the problem](https://leetcode.com/problems/number-of-1-bits/submissions/)
 Solution using the Brian's Algo:
+
+```python
 Class Solution(object):
     def hammingWeight(int n):
         count = 0
@@ -16,3 +18,4 @@ Class Solution(object):
             count += 1
 
     return count
+```

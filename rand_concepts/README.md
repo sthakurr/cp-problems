@@ -25,3 +25,9 @@ There are 2 algorithms to find the MST of a graph and they both follow Greedy ap
     - Repeat this until there are (V-1) edges
 
 **NOTE**: Prim iterates over the vertices whereas Kruskal iterates over the edges hence there's no need to check for cycles in Prim's but Kruskal's has this step of checking for cycles in between!
+
+
+**Dijkstra's algorithm**: 
+
+Find the shortest path in O(E*log(v)) time! It is an SSSP (Single Sourced Shortest Path) algorithm!
+It is a Greedy Algorithm and starts by assigning infinity to each of the distances from source node to every other node.

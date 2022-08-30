@@ -53,3 +53,16 @@ temp = copy.deepcopy(out)
 ### To check for a palindrome:
 
 ' return s == s[::-1] '
+
+### To search for the frequency of a substring in a string
+
+```python
+fullstr.count(substr)
+len(fullstr.split(substr))-1
+```  
+
+### To get an all-1s bitmask of length n
+
+```python
+mask = (1<<(n+1)) - 1
+```

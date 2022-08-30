@@ -55,4 +55,9 @@ class Solution(object):
             return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
 ```
 
-## Linked List
+## Priority Queue
+
+An extension of queue where the elements with higher priority values are served first. So, in a MaxHeap, the root node is removed first if it is a descending order priority queue and in a MinHeap, the root node is removed first if it is an ascending order priority queue!
+
+Searching: O(n)
+Insertion: O(log(n))

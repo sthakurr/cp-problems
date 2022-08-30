@@ -28,7 +28,7 @@ Member functions can either be defined inside or outside of a class. For outside
 All these member functions are by default inline (which means that they are executed at the point of function call in the main function and so the overhead time of calling the function is not there). _Inline functions_ are actual functions, which are copied everywhere during compilation, like pre-processor macro, so the overhead of function calling is reduced.
 
 1. **Constructors**: Default functions called when an object definition is instantiated
-2. **Destructors**: Default functions called when the scope of an object ends
+2. **Destructors**: Default functions called when the scope of an object ends; frees the resources acquired by the object
 
 ### [Data Hiding and access specifiers](https://www.geeksforgeeks.org/access-modifiers-in-c/)
 

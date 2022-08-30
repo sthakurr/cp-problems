@@ -8,6 +8,8 @@ In heap sorting, we first convert the given data into a random heap (a random di
 Refer to [Building Heap From Array](../README.md## building-heap-from-array)
 
 Sample code for heap sorting:
+
+```python
 def heapify(arr, n, i):
     largest = i  # Initialize largest as root
     l = 2 * i + 1     # left = 2*i + 1
@@ -46,9 +48,11 @@ def heapSort(arr):
 
 arr = [ 12, 11, 13, 5, 6, 7]
 heapSort(arr)
+```
 
 ## Quick Sort
 
+```python
 def quicksort(arr):
     if len(arr) <= 1:
         return arr
@@ -57,3 +61,4 @@ def quicksort(arr):
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
     return quicksort(left) + middle + quicksort(right)
+```

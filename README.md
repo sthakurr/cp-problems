@@ -11,11 +11,14 @@ A repository containing the hints and (my) solutions to some of the Leetcode pro
 
 ### Depth-First Search:
 
+**Use a Stack for DFS**
+
 In Depth First Search, we recursively expand potential candidate until the defined goal is achieved. After that, we backtrack to explore the next potential candidate. Viewing this as a graph, we explore all the possibilities by going till the last node in that branch (exhausting the depth) and then jumping to the adjacent node to explore the other possibilities. This is known as Backtracking.
 
 Given a graph adjacency dictionary containing the neighbors of each node, the dfs can be implemented as:
 
 visited = set() # Set to keep track of visited nodes of graph.
+
 
 def dfs(visited, graph, node):  #function for dfs 
     if node not in visited:
@@ -25,6 +28,10 @@ def dfs(visited, graph, node):  #function for dfs
             dfs(visited, graph, neighbour)
 
 Breadth-First Search:
+
+**Use a Queue for BFS**
+
+In Breadth First Traversal, start from a source node and go to its left node then right node then do the same thing with the left node taking as the source then right node taking as the source
 
 ### Digit Dynamic Programming:
 
@@ -45,7 +52,7 @@ Use bitmasking when keeping a track of subsets included for a given setting. For
 ### Trie (Prefix Tree)
 [Implementation](https://leetcode.com/problems/implement-trie-prefix-tree/)
 
-Reservoir Sampling:
+### Reservoir Sampling:
 A family of randomized algorithms for sampling from a population of unknown size.
 
 ## building-heap-from-array
