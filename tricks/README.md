@@ -1,3 +1,9 @@
+# Helpful codes:
+
+1. Sum of n[s] = return int(n * (n + 1) / 2)
+2. GCD = if m == 0: return n; return gcd(m, n % m)
+3. LCM = prod = n * m; hcf = gcd(n, m); return int(prod / hcf)
+
 # Eliminating the base cases 
 
 [Link](https://leetcode.com/problems/can-place-flowers/) to the problem: Can Place Flowers

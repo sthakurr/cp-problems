@@ -3,3 +3,4 @@ For interval questions, usually sort the given intervals according to their firs
 NOTE: Use a stack kind of data structure 
 
 [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+

@@ -1,3 +1,16 @@
+**Time Complexities**
+
+For Recursive calls:
+Refer to [this](https://stackoverflow.com/questions/13467674/determining-complexity-for-recursive-functions-big-o-notation) for examples!
+
+- If the function is being called recursively n times before reaching the base case, it is O(n), often called linear.
+- If the function is called n-5 for each time, so we deduct five from n before calling the function, but n-5 is also O(n). (Actually called order of n/5 times. And, O(n/5) = O(n) ).
+- This function is log(n) base 5, for every time we divide by 5 before calling the function so its O(log(n))(base 5), often called logarithmic and most often Big O notation and complexity analysis uses base 2.
+- If each function call calls itself twice unless it has been recursed n times, it is O(2^n), or exponential.
+- (For loop + Recursive call): the for loop takes n/2 since we're increasing by 2, and the recursion takes n/5 and since the for loop is called recursively, therefore, the time complexity is in (n/5) * (n/2) = n^2/10
+
+For loops:
+
 
 **Disjoint Set/Union Find Algorithm**: It allows us to keep track of non-overlapping subsets of a set and perform find and union operations! Used to detect cycles in a graph. This method assumes that the graph doesn’t contain any self-loops as the implementation assumes that all of the vertices have self-loops (i.e. they are their own parents).
 Whenever we find that both the vertices of any edge correspond to the same subset, then there is a CYCLE!
@@ -31,3 +44,6 @@ There are 2 algorithms to find the MST of a graph and they both follow Greedy ap
 
 Find the shortest path in O(E*log(v)) time! It is an SSSP (Single Sourced Shortest Path) algorithm!
 It is a Greedy Algorithm and starts by assigning infinity to each of the distances from source node to every other node.
+
+**Topological Sorting** (Kahn's Algorithm):
+Given a Directed Acyclic Graph (DAG), we want to sort the nodes such that for any directed edge u --> v, u comes before v in the ordering!
