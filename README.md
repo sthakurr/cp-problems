@@ -662,6 +662,38 @@ class Solution(object):
         return dp[target]
 ```
 
+**Matrix Multiplication Variants**:
+
+[Burst Balloons](https://leetcode.com/problems/burst-balloons/)
+**V.V.Important Que**
+Refer to the Neetcode video solution for easier understanding
+```python
+class Solution:
+    def maxCoins(self, nums: List[int]) -> int:
+        # O(n^3) solution
+        # Think every balloon to be the last balloon to be popped instead of popping it as the first balloon. Then the individual subproblems can be identified!! 
+        nums = [1] + nums + [1]
+        dp = [[-1 for i in range(len(nums))] for j in range(len(nums))]
+        
+        @cache
+        def solve(l, r):
+            if l > r: return 0
+            
+            if dp[l][r] != -1: return dp[l][r]
+            
+            tot = 0
+            for i in range(l, r+1):
+                ans = nums[l-1] * nums[i] * nums[r+1]
+                ans += solve(l, i-1) + solve(i+1, r)
+                tot = max(tot, ans)
+            
+            dp[l][r] = tot
+            return tot
+            
+        solve(1, len(nums)-2)
+        return dp[1][len(nums)-2]
+```
+
 **Matrix/2DArray:**
 [Matrix Block Sum](https://leetcode.com/problems/matrix-block-sum/)
 **Trick**: Use prefix sum to calculate the block sums and then use those values to obtain the final values!
@@ -721,6 +753,52 @@ class Solution:
         return min(dp[0][i] for i in range(n))
 ```
 
+[Dungeon Game](https://leetcode.com/problems/dungeon-game/)
+If I am at (i,j) and I know the minimum health required to start at (i+1, j) or (i, j+1) and still have >0 health at the bottom right then, the answer at (i, j) = max(1, min(dp[i+1][j], dp[i][j+1]) - val[i][j]) because if at any point, the value goes negative or 0, we make 1 as the minimum health required to start at that gridpoint!
+
+TRICK: Keep on traversing backwards by maintaining positive health all the time!
+
+```python
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        m, n = len(dungeon), len(dungeon[0])
+        dp = [[0 for i in range(n)] for j in range(m)]
+        dp[m-1][n-1] = abs(dungeon[m-1][n-1]) + 1 if dungeon[m-1][n-1] < 0 else 1
+        
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                if i == m-1 and j == n-1: continue
+                path1, path2 = float('inf'), float('inf')
+                if i+1 < m:
+                    path1 = dp[i+1][j]
+                if j+1 < n:
+                    path2 = dp[i][j+1]
+                dp[i][j] = max(1, min(path1, path2) - dungeon[i][j])
+        
+        return dp[0][0]
+```
+
+[Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
+(Variant of Minimum Falling Path Sum)
+
+```python
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                path1, path2 = float('inf'), float('inf')
+                if i+1 < m:
+                    path1 = grid[i+1][j]
+                if j+1 < n:
+                    path2 = grid[i][j+1]
+                if i==m-1 and j==n-1: continue
+                grid[i][j] += min(path1, path2)
+        
+        return grid[0][0]
+```
+
 **Hash+DP**:
 [Target Sum](https://leetcode.com/problems/target-sum/)
 
@@ -740,3 +818,29 @@ class Solution:
         return profit
 ```
 
+**Depth-First Search + DP**
+
+[Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/)
+Use normal DFS to traverse but keep on storing the answers in a dictionary of tuples: (row, col, moves)
+
+```python
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        dp = dict()
+        mod = pow(10, 9) + 7
+        def solve(i, j, moves):
+            # base cases to return a 1 if the ball goes out of boundary
+            if moves>=0 and (i<0 or i>=m or j>=n or j<0): return 1
+            elif moves==0 and (0<=i<m and 0<=j<n): return 0
+            elif (i, j, moves) in dp: return dp[(i, j, moves)]
+            else:
+                # include memoization here
+                dirs = [[1,0], [0,1], [-1,0], [0,-1]]
+                ans = 0
+                for r, c in dirs:
+                    row, col = i+r, j+c
+                    ans += solve(row, col, moves-1)
+                dp[(i,j,moves)] = ans
+                return ans
+        return solve(startRow, startColumn, maxMove) % mod
+```
