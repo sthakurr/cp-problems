@@ -408,6 +408,7 @@ return res
 ## Dynamic Programming
 
 "Those who forget the past are condemned to repeat it."
+
 Condition 1: If we can solve the problem using the answer to its subproblems!
 Condition 2: If there are overlapping subproblems in the solution
 
@@ -460,6 +461,37 @@ for envelope in envelopes:
     else: LIS[idx] = envelopes[1]
 return len(LIS)
 ```
+
+[Number of LIS](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
+
+Maintain a count of the LIS present at every index alongwith the length of the LIS!
+
+```python
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        dp = [1]*len(nums) # will store the length of the LIS 
+        counts = [1]*len(nums) # will store the number of LIS present at that index
+        ans, maxlen = 1, 1
+        
+        for i in range(1, len(nums)):
+            count = 1
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    if (dp[j] + 1) > dp[i]:
+                        count = counts[j]
+                    elif (dp[j] + 1) == dp[i]:
+                        count += counts[j]
+                    dp[i] = max(dp[i], dp[j] + 1)
+            counts[i] = count
+            if dp[i] > maxlen:
+                ans, maxlen = counts[i], dp[i]
+            elif dp[i] == maxlen:
+                ans += counts[i]
+                
+        return ans
+```
+
+Keep on maintaining a count of LIS at every index that includes it and whenever a subsequence with a greater length is encountered, 
 
 [Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/)
 Use the same concept as LIS and update the condition to obtain the new subset out of all the previous subsets.
@@ -575,10 +607,40 @@ class Solution:
 ```
 
 **Bitmasking:**
+[Partition to K equal sum subsets]()
+
+Track the elements that have been used already in an array and run the whole recursion until all the K subsets are not found.
+
+```python
+class Solution:
+    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
+        # Try using bitmasking to keep track of the subsets that are already built
+        if sum(nums) % k != 0: return False
+        nums.sort(reverse=True)
+        used = [False]*len(nums)
+        target = sum(nums)//k
+        
+        def solve(i, k, total):
+            if k == 0:
+                return True
+            if total == target: 
+                return solve(0, k-1, 0)
+            for j in range(i, len(nums)):
+                if used[j] or used[j] + total > target:
+                    continue
+                used[j] = True
+                if solve(j + 1, k, total + nums[j]): 
+                    return True
+                used[j] = False
+            return False
+            
+        return solve(0, k, 0)
+```
 
 
 **Palindrome:**
 [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
+
 If 'aba' is a palindrome then 'xabax' will also be a palindrome so try to move in both directions at every index to find the palindrome using two pointers. **Do this for both even and odd length palindromes**
 ```python
 class Solution:
@@ -660,6 +722,24 @@ class Solution(object):
                     dp[a] += dp[a-num]
                     
         return dp[target]
+```
+
+[Coin Change II](https://leetcode.com/problems/coin-change-ii/)
+
+This is a bit different than combination sum IV because here we cannot repeat combinations like (2,1,1) and (1,2,1) are treated equally and not differently as it was done in combination sum IV. So, to avoid adding them up, keep on tracking the index also and use the answers at index i+1 for every i to write the final answers!
+
+```python
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [[0]*(len(coins)+1) for j in range(amount + 1)]
+        dp[0] = [1] * (len(coins)+1)
+        
+        for a in range(1, amount+1):
+            for i in range(len(coins)-1, -1, -1):
+                dp[a][i] = dp[a][i + 1]
+                if a - coins[i] >= 0:
+                    dp[a][i] += dp[a - coins[i]][i]
+        return dp[amount][0]
 ```
 
 **Matrix Multiplication Variants**:
@@ -802,6 +882,26 @@ class Solution:
 **Hash+DP**:
 [Target Sum](https://leetcode.com/problems/target-sum/)
 
+NOTE: Make sure to check till the last index since there are negative values too so doing (total > target) might lead to wrong answers!
+
+```python
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        
+        dp = {}
+        
+        def dfs(i, total):
+            if i == len(nums):
+                if total == target: return 1
+                else: return 0
+            if (i, total) in dp: return dp[(i, total)]
+            ans = dfs(i+1, total - nums[i]) + dfs(i+1, total + nums[i])
+            dp[(i, total)] = ans
+            return ans
+            
+        return dfs(0, 0)
+```
+
 **State Machine**:
 
 [Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
@@ -816,6 +916,126 @@ class Solution:
             profit = max(profit, price-minPrice)
             minPrice = min(minPrice, price)
         return profit
+```
+
+[Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+The Top-down approach:
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        # buying will mean:
+        # 0 --> has no stock
+        # 1 --> has a stock
+        dp = dict()
+        
+        def dfs(day, buying, profit):
+            
+            if day >= len(prices): 
+                return 0
+            if (day, buying) in dp: return dp[(day, buying)]
+            cooldown = dfs(day+1, buying, profit)
+            if not buying:
+                buy = -prices[day] + dfs(day+1, not buying, profit)
+                dp[(day, buying)] = max(cooldown, buy)
+                return dp[(day, buying)]
+            else:
+                sell = prices[day] + dfs(day+1, not buying, profit)
+                dp[(day, buying)] = max(sell, cooldown)
+                return dp[(day, buying)]
+        
+        return dfs(0, 0, 0)
+```
+
+An alternative greedy solution:
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        for i in range(len(prices)-1):
+            if prices[i] < prices[i+1]:
+                profit += prices[i+1] - prices[i]
+        return profit
+```
+
+[Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
+
+The DP with caching (Top-down approach):
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        dp = dict()
+        def solve(i, owning, k):
+            if k == 2 or i == len(prices): return 0
+            if (i, owning, k) in dp: return dp[(i, owning, k)]
+            cooldown = solve(i+1, owning, k)
+            
+            if owning:
+                sell = prices[i] + solve(i+1, not owning, k+1)
+                dp[(i, owning, k)] = max(sell, cooldown)
+                return max(sell, cooldown)
+            else:
+                buy = solve(i+1, not owning, k) - prices[i]
+                dp[(i, owning, k)] = max(buy, cooldown)
+                return max(buy, cooldown)
+            
+        return solve(0, 0, 0)
+```
+
+[Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/)
+
+```python
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        dp = [[[-1 for a in range(k+1)] for b in range(2)] for c in range(len(prices) + 1)]
+        
+        def dfs(i, owning, count):
+            if count == k or i == len(prices): return 0
+            if dp[i][owning][count] != -1: return dp[i][owning][count]
+            
+            cooldown = dfs(i+1, owning, count)
+            
+            if owning:
+                sell = dfs(i+1, not owning, count + 1) + prices[i]
+                dp[i][owning][count] = max(sell, cooldown)
+                return max(sell, cooldown)
+            else:
+                buy = dfs(i+1, not owning, count) - prices[i]
+                dp[i][owning][count] = max(buy, cooldown)
+                return max(buy, cooldown)
+            
+        return dfs(0, 0, 0)
+```
+
+[Buy and Sell Stock with cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+
+[Buy and Sell Stock with transaction fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        dp = dict()
+        
+        def dfs(day, buying, profit):
+            if day >= len(prices): 
+                return 0
+            
+            if (day, buying) in dp: return dp[(day, buying)]
+            
+            cooldown = dfs(day+1, buying, profit)
+            
+            if not buying:
+                buy = -prices[day] + dfs(day+1, not buying, profit) - fee
+                dp[(day, buying)] = max(cooldown, buy)
+                return dp[(day, buying)]
+            else:
+                sell = prices[day] + dfs(day+1, not buying, profit)
+                dp[(day, buying)] = max(sell, cooldown)
+                return dp[(day, buying)]
+        
+        return dfs(0, 0, 0)
 ```
 
 **Depth-First Search + DP**
@@ -843,4 +1063,69 @@ class Solution:
                 dp[(i,j,moves)] = ans
                 return ans
         return solve(startRow, startColumn, maxMove) % mod
+```
+
+**Minmax DP**
+
+[Predict the winner](https://leetcode.com/problems/predict-the-winner/)
+
+The two types of recursive calls made here involve both minimising and maximising! 
+```python
+class Solution:
+    def PredictTheWinner(self, nums: List[int]) -> bool:
+        total = sum(nums)
+        n = len(nums)
+        dp = dict()
+        # player --> 0 is Tom
+        # player --> 1 is Jerry
+        def dfs(i, j, player):
+            # This function will try to find the maximum points player 1 can obtain with that state!
+            if i > j: return 0
+            if (i, j, player) in dp: return dp[(i, j, player)]
+            if player == 0:
+                dp[(i, j, player)] = max(nums[i] + dfs(i+1, j, 1), nums[j] + dfs(i, j-1, 1))
+            else:
+                # When player 2 is playing, he will try to minimise the points player 1 can make at that state!
+                dp[(i, j, player)] = min(dfs(i+1, j, 0), dfs(i, j-1, 0))
+            return dp[(i, j, player)]
+        one = dfs(0, n-1, 0)
+        two = total - one
+        return (one >= two)
+        
+```
+
+**Prefix Sum DP**
+
+[Maximum Number of Points with Cost](https://leetcode.com/problems/maximum-number-of-points-with-cost/)
+
+Refer to [this video](https://www.youtube.com/watch?v=P4Z9XdHAE4o) for more detailed solution and animation!
+**Imp**: Calculating the modified prefix max and modified suffix max to keep track of the max present before and after any array element (both in prefix and suffix respectively)!
+Use the new row computed using these prefixes and suffixes to calculate the further prefMax and sufMax arrays to obtain the next row of dp!
+
+```python
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        m, n = len(points), len(points[0])
+        
+        def prefMax(r):
+            pref = [0]*(n+1)
+            for c in range(n):
+                pref[c+1] = max(pref[c] - 1, dp[r][c])
+            return pref
+        
+        def sufMax(r):
+            suf = [0]*(n+1)
+            for c in range(n-1, -1, -1):
+                suf[c] = max(suf[c+1] - 1, dp[r][c])
+            return suf
+        
+        dp = copy.deepcopy(points)
+        
+        for r in range(1, m):
+            pref = prefMax(r-1)
+            suf = sufMax(r-1)
+            for c1 in range(n):
+                dp[r][c1] = points[r][c1] + max(pref[c1+1], suf[c1])
+                
+        return max([dp[m-1][i] for i in range(n)])
 ```
