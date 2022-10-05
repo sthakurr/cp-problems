@@ -491,7 +491,7 @@ class Solution:
         return ans
 ```
 
-Keep on maintaining a count of LIS at every index that includes it and whenever a subsequence with a greater length is encountered, 
+Keep on maintaining a count of LIS at every index that includes it and whenever a subsequence with a greater length is encountered, reinitialise that count = counts[j] because there can be multiple subsets of that length that are present including that index value.
 
 [Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/)
 Use the same concept as LIS and update the condition to obtain the new subset out of all the previous subsets.
@@ -510,7 +510,9 @@ class Solution:
 ```
 
 **Distinct Ways:**
+
 [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
 A type of problem dealing with distinct ways: **include or exclude** while optimising for a value (check the next problem: Knapsack). Many subsets possible; will take 2^n recursions but can be further optimised using a 2D DP (for index and target remaining) and then either top down or bottom up approach! 
 
 ```python
@@ -563,6 +565,7 @@ class Solution:
 ```
 
 [0/1 Knapsack Problem]()
+
 To maximise the value while checking all the subsets and restricted by the weight capacity of the knapsack:
 
 ```python
@@ -583,6 +586,7 @@ To maximise the value while checking all the subsets and restricted by the weigh
 **Longest Common Subsequence Variants:**
 
 [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+
 Use a 2D DP and traverse it based on decisions at each step
 ```python
 class Solution:
@@ -670,6 +674,7 @@ class Solution:
         return count
 ```
 [Palindromic Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/)
+
 The idea is to maintain the answers for a substring in a 1D array. Then the O(n^2) solution will traverse over all the array and will check for all possible palindromes to the right of that index and will find the minimum of all those possibilities by adding 1 to the valid answers (where a palindrome is found)!
 
 ```python
@@ -690,6 +695,7 @@ class Solution:
 **Coin Change Variants**:
 
 [Coin Change](https://leetcode.com/problems/coin-change/)
+
 Maintain a 1D DP array to have all the sum possibilities till a given amount and then use those values to calculate the answer for the remaining amounts!
 ```python
 class Solution:
@@ -704,7 +710,8 @@ class Solution:
 ```
 
 [Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
-Use the same concept as Coin change and try to maintain the answer fo rall the possible targets and use them to calculate for the newer values
+
+Use the same concept as Coin change and try to maintain the answer for all the possible targets and use them to calculate for the newer values
 ```python
 class Solution(object):
     def combinationSum4(self, nums, target):
@@ -745,6 +752,7 @@ class Solution:
 **Matrix Multiplication Variants**:
 
 [Burst Balloons](https://leetcode.com/problems/burst-balloons/)
+
 **V.V.Important Que**
 Refer to the Neetcode video solution for easier understanding
 ```python
@@ -776,6 +784,7 @@ class Solution:
 
 **Matrix/2DArray:**
 [Matrix Block Sum](https://leetcode.com/problems/matrix-block-sum/)
+
 **Trick**: Use prefix sum to calculate the block sums and then use those values to obtain the final values!
 ![Matrix Block Sum](/assets/MatrixBlockSum.png)
 
@@ -803,7 +812,10 @@ class Solution:
 ```
 
 [Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/)
+
 Populate an (m*n) dp marix to store the minimum falling path of every gridpoint by recursing for each column in the first row to the last row. Return the minimum value from the first row!
+A bottom up approach is mentioned in the Minimum Path Sum answer below!
+
 ```python
 class Solution:
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
@@ -834,6 +846,7 @@ class Solution:
 ```
 
 [Dungeon Game](https://leetcode.com/problems/dungeon-game/)
+
 If I am at (i,j) and I know the minimum health required to start at (i+1, j) or (i, j+1) and still have >0 health at the bottom right then, the answer at (i, j) = max(1, min(dp[i+1][j], dp[i][j+1]) - val[i][j]) because if at any point, the value goes negative or 0, we make 1 as the minimum health required to start at that gridpoint!
 
 TRICK: Keep on traversing backwards by maintaining positive health all the time!
@@ -860,6 +873,8 @@ class Solution:
 
 [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
 (Variant of Minimum Falling Path Sum)
+
+Preferably do a bottom up approach and keep on calculating the answers in the array itself!
 
 ```python
 class Solution:
@@ -986,6 +1001,8 @@ class Solution:
 
 [Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/)
 
+Make sure to increase the count only when the transaction is completed: i.e., when the bought stock is sold
+
 ```python
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
@@ -1042,6 +1059,7 @@ class Solution:
 
 [Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/)
 Use normal DFS to traverse but keep on storing the answers in a dictionary of tuples: (row, col, moves)
+Remember about one of the other base cases where moves = 0 but the ball is still in bounds then return 0
 
 ```python
 class Solution:
@@ -1128,4 +1146,316 @@ class Solution:
                 dp[r][c1] = points[r][c1] + max(pref[c1+1], suf[c1])
                 
         return max([dp[m-1][i] for i in range(n)])
+```
+
+**Two Pointers**
+
+Two pointers can help in improving the Time Complexities drastically. Instead of using two for loops, sometimes two pointers can be used in a logical way to do the job in a single iteration! 
+
+[Two Sum]()
+
+This question can be done in O(n) TC using a hashmap (O(n) SC) but it can also be done in O(nlogn) TC but O(1) SC using two pointers.
+
+```python
+i, j = 0, n-1
+nums.sort()
+while i < j:
+    summ = nums[i] + nums[j]
+    if summ < target: i += 1
+    elif summ > target: j -= 1
+    else: return True
+
+return False
+```
+
+[Three Sum](https://leetcode.com/problems/3sum/)
+
+This can be done in O(n^2) by breaking it into a two sum problem for every element! Remember lo < hi in the condition and not lo <= hi
+
+```python
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        ans = set()
+        for i, a in enumerate(nums):
+            lo, hi = i+1, len(nums)-1
+            target = -a
+            while lo < hi:
+                summ = nums[lo] + nums[hi]
+                if (summ > target): hi -= 1
+                elif (summ < target): lo += 1
+                else: 
+                    if (a, nums[lo], nums[hi]) not in ans:
+                        ans.add((a, nums[lo], nums[hi]))
+                    else: 
+                        hi -= 1
+                        lo += 1
+        return ans
+```
+[Maximum Matching of Players with Trainers](https://leetcode.com/problems/maximum-matching-of-players-with-trainers/)
+
+```python
+class Solution:
+    def matchPlayersAndTrainers(self, players: List[int], trainers: List[int]) -> int:
+        i, j, res = 0, 0, 0
+        players.sort()
+        trainers.sort()
+        while i < len(players) and j < len(trainers): 
+            if players[i] > trainers[j]: j += 1
+            else: 
+                res += 1
+                i += 1
+                j += 1
+                
+        return res
+```
+
+[Watering Plants II](https://leetcode.com/problems/watering-plants-ii/)
+
+```python
+class Solution:
+    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
+        i, j = 0, len(plants)-1
+        res = 0
+        A, B = capacityA, capacityB
+        while i <= j:
+            if i == j:
+                if plants[i] <= capacityA or plants[i] <= capacityB: i += 1
+                else:
+                    res += 1
+                    i += 1
+            else:
+                if plants[i] <= capacityA: capacityA -= plants[i]
+                else: 
+                    capacityA = A
+                    res += 1
+                    capacityA -= plants[i]
+                i += 1
+                if plants[j] <= capacityB: capacityB -= plants[j]
+                else: 
+                    capacityB = B
+                    res += 1
+                    capacityB -= plants[j]
+                j -= 1
+        return res
+```
+
+[Trapping Rain Water]()
+
+Using two pointers l and r as 0 and (n-1)
+
+
+[Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
+
+Refer to [this](https://www.youtube.com/watch?v=wjYnzkAhcNk) video solution.
+This is a Linked List Cycle Detection problem and the algorithm used is the Floyd's Cycle Detection Algo.
+
+```python
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        # Linked List cycle detection (two pointers: fast and slow)
+        fast, slow = 0, 0
+        while True:
+            slow = nums[slow] # move 1 step
+            fast = nums[nums[fast]] # move 2 steps further
+            if fast == slow:
+                break
+        # Initialise another slow pointer and use it to reach the previous slow pointer
+        slow2 = 0
+        while True:
+            slow = nums[slow]
+            slow2 = nums[slow2]
+            if slow == slow2:
+                return slow
+```
+
+[Sort Colors](https://leetcode.com/problems/sort-colors/)
+
+Optimal Approach: Using Dutch National Flag Algorithm
+
+This algorithm works with three pointers, low, mid and high and runs until all the 0's are on the left side of mid and all the 2's are on the right side of the high.
+
+NOTE: When a 2 is found by mid, DO NOT increment the mid pointer.
+
+```python
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        # Dutch National Flag Algorithm
+        low, high, mid = 0, len(nums) - 1, 0
+        
+        while mid <= high:
+            if nums[mid] == 0: 
+                nums[mid], nums[low] = nums[low], nums[mid]
+                low += 1
+                mid += 1
+            elif nums[mid] == 2: 
+                nums[mid], nums[high] = nums[high], nums[mid]
+                high -= 1
+            else:
+                mid += 1
+```
+
+**Sliding Window**
+
+--> Subarray and substrings are continuous
+--> Subset and subsequences need not be continuous
+
+So, sliding window should ideally work for subarrays and substrings whereas subsets and subsequences might need somethng like DP or recursion for 0/1 choice.
+
+1. Fixed Size Window
+2. Variable Size Window
+
+If given subarray/substring and largest/smallest of something and either a window size is given or is asked for then think about sliding window once!
+
+To check if a string or array is a permutation of any other: we can compare the character/integer frequencies
+
+
+
+[MONOTONICALLY DECREASING QUEUE:](https://www.youtube.com/watch?v=DfljaUwZsOk)
+We are adding the values to the queue in a decreasing order but as soon as we obtain a greater value, we remove all the previously added smaller value because we will never consider them to be the answer until the greater value is reached and popped in the windows. However, the values smaller occuring after the greater value are also added to the queue since they can potentially be the answers for the upcoming windows when the greater value is out of bounds!
+
+**Greedy Algorithms**
+
+We try to proceed by calculating the local optimum at every moment to find the final optimum.
+
+--> Activity Selection
+
+[N meetings in one room](https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1)
+Sort according to the end time and then use greedy approach!
+
+```python
+class Solution:
+    
+    #Function to find the maximum number of meetings that can
+    #be performed in a meeting room.
+    def maximumMeetings(self,n,start,end):
+        meetings = [(start[i], end[i]) for i in range(n)]
+        meetings.sort(key=lambda i:i[1])
+        start, end = meetings[0][0], meetings[0][1]
+        count = 1
+        
+        for i in range(1, len(meetings)):
+            if meetings[i][0] > end:
+                end = meetings[i][1]
+                count += 1
+        return count
+```
+
+**Heaps**
+
+**IMP**: When finding the kth smallest, use the maxHeap and when finding the kth largest, use a minHeap!
+The heapq module can find the k largest or smallest elements in an iterable using nlargest(k, nums) and nsmallest(k, nums).
+In order to implement a max Heap, use the negative values as input to the heap structure and check if -newVal < heap[0]: then push it to the heap
+
+[Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/)
+
+We can input a list into a heap then it sorts according to the first element by default.
+```python
+class Solution:
+    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        queue = []
+        def push(i, j):
+            if i < len(nums1) and j < len(nums2):
+                heapq.heappush(queue, [nums1[i] + nums2[j], i, j])
+        push(0, 0)
+        pairs = []
+        while queue and len(pairs) < k:
+            _, i, j = heapq.heappop(queue)
+            pairs.append([nums1[i], nums2[j]])
+            push(i, j + 1)
+            if j == 0:
+                push(i + 1, 0) # because start traversing the next row, only when the first character of that row is found as the smaller value than the previous row!!
+        return pairs
+```
+
+**Prefix Sum**
+
+**Binary Search**
+
+You should know how to reduce your search space based on the conditions given in the questions!
+
+**Game Theory**
+
+[Stone Game](https://leetcode.com/problems/stone-game/)
+
+Instead of using a dp array, @lru_cache(maxsize=None) does the job! 
+The solution is an optimal strategy where the function defines the final output for only one player and the recursive calls are made in an intuitive manner. When the defining player is playing, we use max and add the chosen values but when the other player is playing, the score of the defining player will be the minimum of the possible next chances, and more importantly, no value is added in this case since the defining player is not playing in this round!
+
+```python
+    def stoneGame(self, piles: List[int]) -> bool:
+        @lru_cache(maxsize=None)
+        def turn(start, end, chance):
+            if start > end: return 0
+            if chance == 0: # Alice
+                ans = max(piles[start] + turn(start+1, end, not chance), piles[end] + turn(start, end - 1, not chance))
+            else:
+                ans = min(turn(start+1, end, not chance), turn(start, end - 1, not chance))
+            return ans
+        total = sum(piles)
+        alice = turn(0, len(piles)-1, 0)
+        return alice > (total - alice)
+```
+
+[Predict the Winner](https://leetcode.com/problems/predict-the-winner/)
+
+Very similar to Stone Game!
+
+```python
+class Solution:
+    def PredictTheWinner(self, nums: List[int]) -> bool:
+        total = sum(nums)
+        n = len(nums)
+        # player --> 0 is Tom
+        # player --> 1 is Jerry
+        @lru_cache(maxsize=None)
+        def dfs(i, j, player):
+            # This function will try to find the maximum points player 1 can obtain with that state!
+            if i > j: return 0
+            if player == 0:
+                ans = max(nums[i] + dfs(i+1, j, 1), nums[j] + dfs(i, j-1, 1))
+            else:
+                # When player 2 is playing, he will try to minimise the points player 1 can make at that state!
+                ans = min(dfs(i+1, j, 0), dfs(i, j-1, 0))
+            return ans
+        one = dfs(0, n-1, 0)
+        two = total - one
+        return (one >= two)
+```
+
+[Stone Game IV](https://leetcode.com/problems/stone-game-iv/)
+
+This is different than Stone Game because here, the defining state is only the number of stones and the player is implicit in there. So, same actions are taken by each player and the one reaching the zero will lose and the other will win!
+
+```python
+class Solution:
+    def winnerSquareGame(self, n: int) -> bool:
+
+        @lru_cache(maxsize=None)
+        def dfs(remain):
+            if remain == 0:
+                return False
+
+            sqrt_root = int(remain**0.5)
+            for i in range(1, sqrt_root+1):
+                # if there is any chance to make the opponent lose the game in the next round,
+                #  then the current player will win.
+                if not dfs(remain - i*i):
+                    return True
+
+            return False
+
+        return dfs(n)
+```
+
+[Nim Game](https://leetcode.com/problems/nim-game/)
+
+In this, we can't really use the Stone Game IV trick because the values are very very high 2^31 - 1, the maximum recursion depth will be exceeded. It's a trick question
+
+```python
+class Solution:
+    def canWinNim(self, n: int) -> bool:
+        return n % 4 != 0
 ```
